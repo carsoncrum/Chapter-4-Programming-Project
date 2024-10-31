@@ -1,44 +1,44 @@
-// Calculating Days in a Month
+// Calculating Shipping Charges
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 int main()
 
 {
-  int month, year;
+  double weight, distance;
+  double rate, charges;
 
   do {
-    cout << "Enter a month (1–12): ";
-    cin >> month;
-    if (month < 1 || month > 12) {
-      cout << "Invalid month. Please enter a month between 1 and 12." << endl;
+    cout << "Enter the weight of the package (in kilograms): ";
+    cin >> weight;
+    if (weight <= 0 || weight > 20) {
+      cout << "Invalid weight. Please enter a weight between 0 and 20 kg." << endl;
     }
-  } while (month < 1 || month > 12);
+  } while (weight <= 0 || weight > 20);
 
-  cout << "Enter a year: ";
-  cin >> year;
-  bool isLeapYear = false;
-  if (year % 100 == 0) {
-    isLeapYear = (year % 400 == 0);
+  do {
+    cout << "Enter the shipping distance (in miles): ";
+    cin >> distance;
+    if (distance < 10 || distance > 3000) {
+      cout << "Invalid distance. Please enter a distance between 10 and 3000 miles." << endl;
+    }
+  } while (distance < 10 || distance > 3000);
+
+  if (weight <= 2) {
+    rate = 1.10;
+  } else if (weight <= 6) {
+    rate = 2.20;
+  } else if (weight <= 10) {
+    rate = 3.70;
   } else {
-    isLeapYear = (year % 4 == 0);
+    rate = 4.80;
   }
   
-  int daysInMonth;
-  switch (month) {
-    case 2:
-      daysInMonth = (isLeapYear) ? 29 : 28;
-      break;
-    case 4:
-    case 6:
-    case 9:
-    case 11:
-      daysInMonth = 30;
-      break;
-    default:
-      daysInMonth = 31;
-  }
-cout << daysInMonth << " days " << endl;
+  charges = rate * ceil(distance / 500.0); // ceil rounds up to the nearest integer
+
+  cout << "Total shipping charges: $" << charges << endl;
+
   
   return 0;
 }
